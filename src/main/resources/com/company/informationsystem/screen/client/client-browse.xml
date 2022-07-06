@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://requestBrowse.caption"
-        focusComponent="requestsTable">
+        caption="msg://clientBrowse.caption"
+        focusComponent="clientsTable">
     <data readOnly="true">
-        <collection id="requestsDc"
-                    class="com.company.informationsystem.entity.Request">
-            <fetchPlan extends="_base">
-                <property name="initiator" fetchPlan="_base"/>
-                <property name="executor" fetchPlan="_base"/>
-            </fetchPlan>
-            <loader id="requestsDl">
+        <collection id="clientsDc"
+                    class="com.company.informationsystem.entity.Client">
+            <fetchPlan extends="_base"/>
+            <loader id="clientsDl">
                 <query>
-                    <![CDATA[select e from Request e]]>
+                    <![CDATA[select e from Client e]]>
                 </query>
             </loader>
         </collection>
@@ -33,33 +30,30 @@
     </actions>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="requestsTable" spacing="true">
+    <layout expand="clientsTable" spacing="true">
         <filter id="filter"
-                dataLoader="requestsDl">
+                dataLoader="clientsDl">
             <properties include=".*"/>
         </filter>
-        <groupTable id="requestsTable"
+        <groupTable id="clientsTable"
                     width="100%"
-                    dataContainer="requestsDc">
+                    dataContainer="clientsDc">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
-                <column id="status"/>
-                <column id="description"/>
-                <column id="closeDate"/>
-                <column id="openDate"/>
-                <column id="initiator"/>
-                <column id="executor"/>
+                <column id="firstName"/>
+                <column id="lastName"/>
+                <column id="email"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="requestsTable.create"/>
-                <button id="editBtn" action="requestsTable.edit"/>
-                <button id="removeBtn" action="requestsTable.remove"/>
+                <button id="createBtn" action="clientsTable.create"/>
+                <button id="editBtn" action="clientsTable.edit"/>
+                <button id="removeBtn" action="clientsTable.remove"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
-        caption="msg://requestEdit.caption"
+        caption="msg://employeeEdit.caption"
         focusComponent="form">
     <data>
-        <instance id="requestDc"
-                  class="com.company.informationsystem.entity.Request">
+        <instance id="employeeDc"
+                  class="com.company.informationsystem.entity.Employee">
             <fetchPlan extends="_base">
-                <property name="initiator" fetchPlan="_base"/>
-                <property name="executor" fetchPlan="_base"/>
+                <property name="department" fetchPlan="_base"/>
+                <property name="systemUser" fetchPlan="_base"/>
             </fetchPlan>
             <loader/>
+            <instance id="systemUserDc" property="systemUser"/>
         </instance>
     </data>
     <facets>
@@ -29,19 +30,18 @@
                 width="800"/>
     <layout spacing="true" expand="scrollBox">
         <scrollBox id="scrollBox" spacing="true">
-            <form id="form" dataContainer="requestDc">
+            <form id="form" dataContainer="employeeDc">
                 <column width="350px">
-                    <textField id="statusField" property="status"/>
-                    <textField id="descriptionField" property="description"/>
-                    <dateField id="closeDateField" property="closeDate"/>
-                    <dateField id="openDateField" property="openDate"/>
-                    <entityPicker id="initiatorField" property="initiator">
+                    <textField id="firstNameField" property="firstName"/>
+                    <textField id="lastNameField" property="lastName"/>
+                    <entityPicker id="departmentField" property="department">
                         <actions>
                             <action id="entityLookup" type="entity_lookup"/>
                             <action id="entityClear" type="entity_clear"/>
                         </actions>
                     </entityPicker>
-                    <entityPicker id="executorField" property="executor">
+                    <textField id="postField" property="post"/>
+                    <entityPicker id="systemUserField" property="systemUser">
                         <actions>
                             <action id="entityLookup" type="entity_lookup"/>
                             <action id="entityClear" type="entity_clear"/>

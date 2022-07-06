@@ -6,6 +6,11 @@
         <item screen="themeSettingsScreen" caption="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
         <item screen="Department.browse"
               caption="msg://com.company.informationsystem.screen.department/departmentBrowse.menu"/>
+        <item screen="Client.browse" caption="msg://com.company.informationsystem.screen.client/clientBrowse.menu"/>
+        <item screen="Employee.browse"
+              caption="msg://com.company.informationsystem.screen.employee/employeeBrowse.menu"/>
+        <item screen="Initiator.browse"
+              caption="msg://com.company.informationsystem.screen.initiator/initiatorBrowse.menu"/>
         <item screen="Request.browse" caption="msg://com.company.informationsystem.screen.request/requestBrowse.menu"/>
     </menu>
 

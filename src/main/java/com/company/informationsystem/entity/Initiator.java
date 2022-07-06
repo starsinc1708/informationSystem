@@ -3,6 +3,7 @@ package com.company.informationsystem.entity;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -10,11 +11,15 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.UUID;
 
 @JmixEntity
-@Table(name = "INITIATOR")
+@Table(name = "INITIATOR", indexes = {
+        @Index(name = "IDX_EMPLOYEE_DEPARTMENT_ID", columnList = "DEPARTMENT_ID"),
+        @Index(name = "IDX_EMPLOYEE_SYSTEM_USER_ID", columnList = "SYSTEM_USER_ID")
+})
 @Entity
 public class Initiator {
 
@@ -22,6 +27,15 @@ public class Initiator {
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
+
+    @NotNull
+    @InstanceName
+    @Column(name = "FIRST_NAME")
+    private String firstName;
+
+    @Column(name = "LAST_NAME", nullable = false)
+    @NotNull
+    private String lastName;
 
     @Column(name = "VERSION", nullable = false)
     @Version
@@ -53,25 +67,21 @@ public class Initiator {
     @Column(name = "DELETED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedDate;
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "initiator")
-    private Client client;
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "initiator")
-    private Employee employee;
 
-    public Employee getEmployee() {
-        return employee;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public Client getClient() {
-        return client;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public Date getDeletedDate() {

@@ -12,11 +12,13 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
 @JmixEntity
 @Table(name = "REQUEST", indexes = {
+        @Index(name = "IDX_REQUEST_INITIATOR_ID", columnList = "INITIATOR_ID"),
         @Index(name = "IDX_REQUEST_EXECUTOR_ID", columnList = "EXECUTOR_ID")
 })
 @Entity
@@ -26,11 +28,6 @@ public class Request {
     @Id
     private UUID id;
 
-    @JoinColumn(name = "EXECUTOR_ID", nullable = false)
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Employee executor;
-
     @Column(name = "STATUS")
     private String status;
 
@@ -38,17 +35,21 @@ public class Request {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "OPEN_DATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date openDate;
-
     @Column(name = "CLOSE_DATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date closeDate;
+    private LocalDate closeDate;
+
+    @Column(name = "OPEN_DATE")
+    private LocalDate openDate;
 
     @JoinColumn(name = "INITIATOR_ID", nullable = false)
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Initiator initiator;
+
+    @JoinColumn(name = "EXECUTOR_ID", nullable = false)
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Employee executor;
 
     @Column(name = "VERSION", nullable = false)
     @Version
@@ -81,6 +82,14 @@ public class Request {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedDate;
 
+    public void setOpenDate(LocalDate openDate) {
+        this.openDate = openDate;
+    }
+
+    public LocalDate getOpenDate() {
+        return openDate;
+    }
+
     public Employee getExecutor() {
         return executor;
     }
@@ -97,20 +106,12 @@ public class Request {
         this.initiator = initiator;
     }
 
-    public Date getCloseDate() {
+    public LocalDate getCloseDate() {
         return closeDate;
     }
 
-    public void setCloseDate(Date closeDate) {
+    public void setCloseDate(LocalDate closeDate) {
         this.closeDate = closeDate;
-    }
-
-    public Date getOpenDate() {
-        return openDate;
-    }
-
-    public void setOpenDate(Date openDate) {
-        this.openDate = openDate;
     }
 
     public String getDescription() {
