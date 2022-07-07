@@ -8,9 +8,12 @@ import io.jmix.core.metamodel.annotation.JmixEntity;
 import javax.persistence.*;
 import java.util.List;
 
+@Table(name = "EMPLOYEE")
 @JmixEntity
 @Entity
+@PrimaryKeyJoinColumn(name = "employeeId", referencedColumnName = "ID")
 public class Employee extends Initiator {
+
     @JoinColumn(name = "DEPARTMENT_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Department department;

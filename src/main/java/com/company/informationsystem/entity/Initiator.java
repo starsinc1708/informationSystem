@@ -3,6 +3,7 @@ package com.company.informationsystem.entity;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.metamodel.annotation.DependsOnProperties;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import org.springframework.data.annotation.CreatedBy;
@@ -16,11 +17,10 @@ import java.util.Date;
 import java.util.UUID;
 
 @JmixEntity
-@Table(name = "INITIATOR", indexes = {
-        @Index(name = "IDX_EMPLOYEE_DEPARTMENT_ID", columnList = "DEPARTMENT_ID"),
-        @Index(name = "IDX_EMPLOYEE_SYSTEM_USER_ID", columnList = "SYSTEM_USER_ID")
-})
+@Table(name = "INITIATOR")
 @Entity
+@DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Initiator {
 
     @JmixGeneratedValue
@@ -29,7 +29,6 @@ public class Initiator {
     private UUID id;
 
     @NotNull
-    @InstanceName
     @Column(name = "FIRST_NAME")
     private String firstName;
 
@@ -146,5 +145,11 @@ public class Initiator {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    @InstanceName
+    @DependsOnProperties({"firstName", "lastName"})
+    public String getInstanceName() {
+        return String.format("%s %s", firstName, lastName);
     }
 }

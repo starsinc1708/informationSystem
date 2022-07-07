@@ -25,29 +25,29 @@ public class RequestsService {
     private CurrentAuthentication currentAuthentication;
 
 
-    public List<Request> requestsByExecutor (/*User user*/) {
-
-        /*Initiator initiator = dataManager.load(Employee.class)
+    public List<Request> requestsByExecutor (User user) {
+        Initiator initiator = dataManager.load(Employee.class)
                 .condition(PropertyCondition
                         .equal("firstName", user.getFirstName())).one();
-        System.out.println(initiator.getFirstName() + initiator.getId());*/
-
-        /*return dataManager.load(Request.class)
-                .query("select r from Request r where r.executor.firstName like :firstName")
-                .parameter("firstName", initiator.getFirstName())
-                .list();*/
-        UserDetails user = currentAuthentication.getUser();
-        Authentication authentication = currentAuthentication.getAuthentication();
-
-        User sysUser = dataManager.load(User.class)
-                .query("select u from User u where u.username = :username")
-                .parameter("username", currentAuthentication.getUser().getUsername())
-                .one();
-
-        log.info(sysUser.getLastName());
+        System.out.println(initiator.getFirstName() + initiator.getId());
 
         return dataManager.load(Request.class)
-                .all()
+                .query("select r from Request r where r.executor.firstName like :firstName")
+                .parameter("firstName", initiator.getFirstName())
                 .list();
+
+        /*UserDetails user = currentAuthentication.getUser();
+        Authentication authentication = currentAuthentication.getAuthentication();*/
+
+        /*User sysUser = dataManager.load(User.class)
+                .query("select u from User u where u.username = :username")
+                .parameter("username", currentAuthentication.getUser().getUsername())
+                .one();*/
+
+        /*log.info(sysUser.getLastName());*/
+
+        /*return dataManager.load(Request.class)
+                .all()
+                .list();*/
     }
 }

@@ -33,12 +33,15 @@ public class RequestBrowse extends StandardLookup<Request> {
     private void onInit(Screen.InitEvent event) {
         /*user = dataManager.load(User.class)
                 .condition(PropertyCondition
-                        .equal("username", currentAuthentication.getUser().getUsername())).one();
-        System.out.println(user.getUsername());*/
+                        .equal("username", currentAuthentication.getUser().getUsername()))
+                .one();*/
     }
 
     @Install(to = "requestsDl", target = Target.DATA_LOADER)
     private List<Request> requestsDlLoadDelegate(LoadContext<Request> loadContext) {
-        return requestsService.requestsByExecutor();
+        //return requestsService.requestsByExecutor(user);
+        return dataManager.load(Request.class)
+                .all()
+                .list();
     }
 }
