@@ -8,13 +8,11 @@
                     class="com.company.informationsystem.entity.Request">
             <fetchPlan extends="_base">
                 <property name="initiator" fetchPlan="_base"/>
-                <property name="executor" fetchPlan="_base"/>
+                <property name="executor" fetchPlan="_base">
+                    <property name="systemUser" fetchPlan="_base"/>
+                </property>
             </fetchPlan>
-            <loader id="requestsDl">
-                <query>
-                    <![CDATA[select e from Request e]]>
-                </query>
-            </loader>
+            <loader id="requestsDl"/>
         </collection>
     </data>
     <facets>
@@ -51,8 +49,10 @@
                 <column id="description"/>
                 <column id="closeDate"/>
                 <column id="openDate"/>
-                <column id="initiator"/>
-                <column id="executor"/>
+                <column id="initiator.firstName"/>
+                <column id="initiator.lastName"/>
+                <column id="executor.firstName"/>
+                <column id="executor.lastName"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"

@@ -29,7 +29,6 @@ public class MainScreen extends Screen implements Window.HasWorkArea {
     @Autowired
     private Button collapseDrawerButton;
 
-
     @Override
     public AppWorkArea getWorkArea() {
         return workArea;

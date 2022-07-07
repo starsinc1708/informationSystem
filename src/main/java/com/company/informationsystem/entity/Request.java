@@ -1,10 +1,19 @@
 package com.company.informationsystem.entity;
 
+import io.jmix.core.DataManager;
+import io.jmix.core.LoadContext;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import io.jmix.core.querycondition.PropertyCondition;
+import io.jmix.core.security.CurrentAuthentication;
+import io.jmix.ui.screen.Install;
+import io.jmix.ui.screen.Screen;
+import io.jmix.ui.screen.Subscribe;
+import io.jmix.ui.screen.Target;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -14,6 +23,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @JmixEntity
@@ -193,4 +203,5 @@ public class Request {
     public void setId(UUID id) {
         this.id = id;
     }
+
 }

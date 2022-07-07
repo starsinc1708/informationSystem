@@ -40,7 +40,7 @@
             <column name="STATUS" type="VARCHAR(255)"/>
             <column name="DESCRIPTION" type="VARCHAR(255)"/>
             <column name="CLOSE_DATE" type="DATE"/>
-            <column name="OPEN_DATE" type="VARCHAR(255)"/>
+            <column name="OPEN_DATE" type="DATE"/>
             <column name="INITIATOR_ID" type="UUID">
                 <constraints nullable="false"/>
             </column>

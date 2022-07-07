@@ -7,7 +7,9 @@
                   class="com.company.informationsystem.entity.Request">
             <fetchPlan extends="_base">
                 <property name="initiator" fetchPlan="_base"/>
-                <property name="executor" fetchPlan="_base"/>
+                <property name="executor" fetchPlan="_base">
+                    <property name="systemUser" fetchPlan="_base"/>
+                </property>
             </fetchPlan>
             <loader/>
         </instance>

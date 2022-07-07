@@ -6,7 +6,7 @@ import io.jmix.core.metamodel.annotation.Composition;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @JmixEntity
 @Entity
@@ -15,15 +15,25 @@ public class Employee extends Initiator {
     @ManyToOne(fetch = FetchType.LAZY)
     private Department department;
 
+    @OneToMany(mappedBy = "executor")
+    private List<Request> requests;
+
     @Column(name = "POST")
     private String post;
 
-    @NotNull
     @OnDelete(DeletePolicy.CASCADE)
     @JoinColumn(name = "SYSTEM_USER_ID", nullable = false)
     @Composition
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     private User systemUser;
+
+    public List<Request> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
+    }
 
     public User getSystemUser() {
         return systemUser;
