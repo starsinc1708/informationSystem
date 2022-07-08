@@ -1,18 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://requestBrowse.caption"
+        caption="msg://requestBrowseByInitiator.caption"
         focusComponent="requestsTable">
     <data readOnly="true">
+        <collection id="initiatorsDc"
+                    class="com.company.informationsystem.entity.Initiator">
+            <loader id="initiatorsDl">
+                <query>
+                    <![CDATA[select i from Initiator i]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="employeesDc"
+                    class="com.company.informationsystem.entity.Employee">
+            <loader id="employeesDl">
+                <query>
+                    <![CDATA[select e from Employee e]]>
+                </query>
+            </loader>
+        </collection>
         <collection id="requestsDc"
                     class="com.company.informationsystem.entity.Request">
             <fetchPlan extends="_base">
+                <property name="executor" fetchPlan="_base"/>
                 <property name="initiator" fetchPlan="_base"/>
-                <property name="executor" fetchPlan="_base">
-                    <property name="systemUser" fetchPlan="_base"/>
-                </property>
             </fetchPlan>
-            <loader id="requestsDl"/>
+            <loader id="requestsDl">
+                <query>
+                    <![CDATA[select r from Request r]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>r.initiator = :component_initiatorFilterField</c:where>
+                                <c:where>r.executor = :component_executorFilterField</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
+                </query>
+            </loader>
         </collection>
     </data>
     <facets>
@@ -32,10 +58,17 @@
     <dialogMode height="600"
                 width="800"/>
     <layout expand="requestsTable" spacing="true">
-        <filter id="filter"
-                dataLoader="requestsDl">
-            <properties include=".*"/>
-        </filter>
+        <hbox spacing="true">
+            <label value="Choose request Initiator"/>
+            <entityComboBox id="initiatorFilterField"
+                            textInputAllowed="false"
+                            optionsContainer="initiatorsDc"
+                            nullOptionVisible="true"/>
+            <entityComboBox id="executorFilterField"
+                            textInputAllowed="false"
+                            optionsContainer="employeesDc"
+                            nullOptionVisible="true"/>
+        </hbox>
         <dataGrid id="requestsTable"
                     width="100%"
                     dataContainer="requestsDc">
@@ -50,6 +83,7 @@
                 <column property="openDate" id="openDate"/>
                 <column property="closeDate" id="closeDate"/>
                 <column property="initiator" id="initiator"/>
+                <column property="executor" id="executor"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"

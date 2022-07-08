@@ -33,10 +33,20 @@
         <scrollBox id="scrollBox" spacing="true">
             <form id="form" dataContainer="requestDc">
                 <column width="350px">
-                    <textField id="statusField" property="status"/>
+
+                    <comboBox id="requestStatusField"
+                              dataContainer="requestDc"
+                              property="status"
+                              textInputAllowed="false"
+                              caption="msg://com.company.informationsystem.entity/Request.status">
+                        <validators>
+                            <notEmpty/>
+                        </validators>
+                    </comboBox>
+
                     <textField id="descriptionField" property="description"/>
-                    <dateField id="closeDateField" property="closeDate"/>
                     <dateField id="openDateField" property="openDate"/>
+                    <dateField id="closeDateField" property="closeDate"/>
                     <entityPicker id="initiatorField" property="initiator">
                         <actions>
                             <action id="entityLookup" type="entity_lookup"/>

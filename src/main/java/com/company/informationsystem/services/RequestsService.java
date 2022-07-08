@@ -18,36 +18,19 @@ import java.util.List;
 @Service
 public class RequestsService {
 
-    private static final Logger log = org.slf4j.LoggerFactory.getLogger(RequestsService.class);
     @Autowired
     private DataManager dataManager;
     @Autowired
     private CurrentAuthentication currentAuthentication;
 
-
-    public List<Request> requestsByExecutor (User user) {
-        Initiator initiator = dataManager.load(Employee.class)
-                .condition(PropertyCondition
-                        .equal("firstName", user.getFirstName())).one();
-        System.out.println(initiator.getFirstName() + initiator.getId());
-
+    public List<Request> requestsByExecutor (UserDetails user) {
         return dataManager.load(Request.class)
-                .query("select r from Request r where r.executor.firstName like :firstName")
-                .parameter("firstName", initiator.getFirstName())
+                .query("select r from Request r where r.executor.systemUser.username like :username")
+                .parameter("username", user.getUsername())
                 .list();
+    }
 
-        /*UserDetails user = currentAuthentication.getUser();
-        Authentication authentication = currentAuthentication.getAuthentication();*/
+    public void createRequest (Request request) {
 
-        /*User sysUser = dataManager.load(User.class)
-                .query("select u from User u where u.username = :username")
-                .parameter("username", currentAuthentication.getUser().getUsername())
-                .one();*/
-
-        /*log.info(sysUser.getLastName());*/
-
-        /*return dataManager.load(Request.class)
-                .all()
-                .list();*/
     }
 }

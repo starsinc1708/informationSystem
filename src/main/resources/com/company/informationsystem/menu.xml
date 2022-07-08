@@ -12,6 +12,8 @@
         <item screen="Initiator.browse"
               caption="msg://com.company.informationsystem.screen.initiator/initiatorBrowse.menu"/>
         <item screen="Request.browse" caption="msg://com.company.informationsystem.screen.request/requestBrowse.menu"/>
+        <item screen="Request.browse.by.initiator"
+              caption="msg://com.company.informationsystem.screen.request/requestBrowseByInitiator.menu"/>
     </menu>
 
 </menu-config>
