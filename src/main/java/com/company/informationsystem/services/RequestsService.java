@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Service
@@ -30,7 +31,15 @@ public class RequestsService {
                 .list();
     }
 
-    public void createRequest (Request request) {
-
+    public List<Request> requestsByInitiator(UserDetails user) {
+        Employee employee = dataManager.load(Employee.class)
+                .query("select e from Employee e where e.systemUser.username = :username")
+                .parameter("username", user.getUsername())
+                .one();
+        List<Request> requests = dataManager.load(Request.class)
+                .query("select r from Request r where r.initiator.id = :id")
+                .parameter("id", employee.getId())
+                .list();
+        return requests;
     }
 }
