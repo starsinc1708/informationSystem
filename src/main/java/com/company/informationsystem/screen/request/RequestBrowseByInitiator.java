@@ -7,4 +7,5 @@ import com.company.informationsystem.entity.Request;
 @UiDescriptor("request-browse-by-initiator.xml")
 @LookupComponent("requestsTable")
 public class RequestBrowseByInitiator extends StandardLookup<Request> {
+
 }

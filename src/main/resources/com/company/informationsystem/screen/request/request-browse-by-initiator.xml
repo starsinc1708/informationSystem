@@ -33,6 +33,8 @@
                         <and>
                             <c:jpql>
                                 <c:where>r.initiator = :component_initiatorFilterField</c:where>
+                            </c:jpql>
+                            <c:jpql>
                                 <c:where>r.executor = :component_executorFilterField</c:where>
                             </c:jpql>
                         </and>
@@ -59,11 +61,12 @@
                 width="800"/>
     <layout expand="requestsTable" spacing="true">
         <hbox spacing="true">
-            <label value="Choose request Initiator"/>
+            <label value="msg://requestBrowseByInitiator.chooseInitiator"/>
             <entityComboBox id="initiatorFilterField"
                             textInputAllowed="false"
                             optionsContainer="initiatorsDc"
                             nullOptionVisible="true"/>
+            <label value="msg://requestBrowseByInitiator.chooseExecutor"/>
             <entityComboBox id="executorFilterField"
                             textInputAllowed="false"
                             optionsContainer="employeesDc"

@@ -1,10 +1,13 @@
 package com.company.informationsystem.screen.request;
 
+import com.company.informationsystem.entity.Employee;
 import com.company.informationsystem.entity.Initiator;
+import com.company.informationsystem.entity.User;
 import com.company.informationsystem.services.RequestsService;
 import io.jmix.core.DataManager;
 import io.jmix.core.event.EntitySavingEvent;
 import io.jmix.core.security.CurrentAuthentication;
+import io.jmix.ui.builder.EditMode;
 import io.jmix.ui.component.Button;
 import io.jmix.ui.component.ComboBox;
 import io.jmix.ui.screen.*;
@@ -14,9 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @UiController("Request.edit")
 @UiDescriptor("request-edit.xml")
@@ -40,4 +45,17 @@ public class RequestEdit extends StandardEditor<Request> {
         list.add("Closed");
         requestStatusField.setOptionsList(list);
     }
+
+    @Subscribe
+    public void onInitEntity(InitEntityEvent<Request> event) {
+        if(!Objects.equals(currentAuthentication.getUser().getUsername(), "admin")) {
+            Employee initiator = dataManager.load(Employee.class)
+                    .query("select e from Employee e where e.systemUser.username = :username")
+                    .parameter("username", currentAuthentication.getUser().getUsername())
+                    .one();
+            event.getEntity().setInitiator(initiator);
+        }
+    }
+
+
 }
