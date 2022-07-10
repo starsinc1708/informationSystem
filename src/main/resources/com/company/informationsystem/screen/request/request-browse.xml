@@ -40,9 +40,7 @@
                     width="100%"
                     dataContainer="requestsDc">
             <actions>
-                <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
-                <action id="remove" type="remove"/>
             </actions>
             <columns>
                 <column property="status" id="status"/>
@@ -54,9 +52,7 @@
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="requestsTable.create"/>
                 <button id="editBtn" action="requestsTable.edit"/>
-                <button id="removeBtn" action="requestsTable.remove"/>
             </buttonsPanel>
         </dataGrid>
         <hbox id="lookupActions" spacing="true" visible="false">

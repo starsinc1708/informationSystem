@@ -1,7 +1,9 @@
 package com.company.informationsystem.screen.client;
 
 import com.company.informationsystem.services.ClientService;
+import io.jmix.core.Messages;
 import io.jmix.ui.Notifications;
+import io.jmix.ui.model.InstanceContainer;
 import io.jmix.ui.screen.*;
 import com.company.informationsystem.entity.Client;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +14,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ClientEdit extends StandardEditor<Client> {
 
     @Autowired
-    private ClientService individualService;
+    private ClientService clientService;
     @Autowired
     private Notifications notifications;
+    @Autowired
+    private Messages messages;
 
     @Subscribe
     public void onBeforeCommitChanges(BeforeCommitChangesEvent event) {
         Client client = getEditedEntity();
-        if(individualService.isCorrectEmail(client.getEmail())){
+        if(clientService.isCorrectEmail(client.getEmail())){
             event.resume();
         }
         else {
-            notifications.create().withCaption("The email is not correct.").show();
+            notifications.create().withCaption(messages.getMessage("com.company.informationsystem.screen.client", "theEmailIsNotCorrect")).show();
             event.preventCommit();
         }
     }
