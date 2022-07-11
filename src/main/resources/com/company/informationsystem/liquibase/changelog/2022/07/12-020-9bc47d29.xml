@@ -7,7 +7,6 @@
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
 
     <changeSet id="1" author="informationSystem">
-        <validCheckSum>8:c2f05cc301ddb7dcfa794afb28a9ad62</validCheckSum>
         <insert tableName="department">
             <column name="id" value="cd47b2ef-df55-044e-4b89-5b7faf3d4648"/>
             <column name="title" value="dep1"/>
@@ -23,19 +22,7 @@
     </changeSet>
 
     <changeSet id="2" author="informationSystem">
-        <validCheckSum>8:7da3aeaf53cf27391da59a9786df6c6f</validCheckSum>
-        <insert tableName="client">
-            <column name="clientId" value="864ef664-74a9-82c5-8c81-d888186975eb"/>
-            <column name="email" value="client1@gmail.com"/>
-        </insert>
-        <insert tableName="client">
-            <column name="clientId" value="784fc4fb-8bb5-0862-b59c-a1f586fe2b03"/>
-            <column name="email" value="client2@gmail.com"/>
-        </insert>
-    </changeSet>
-
-    <changeSet id="3" author="informationSystem">
-        <validCheckSum>8:d41d8cd98f00b204e9800998ecf8427e</validCheckSum>
+        <validCheckSum>8:97b134e2b9bed397eaaf045cf053fb9e</validCheckSum>
         <insert tableName="initiator">
             <column name="id" value="864ef664-74a9-82c5-8c81-d888186975eb"/>
             <column name="dtype" value="Client"/>
@@ -50,20 +37,37 @@
             <column name="LAST_NAME" value="Cli2"/>
             <column name="version" value="1"/>
         </insert>
-    </changeSet>
-
-    <changeSet id="4" author="informationSystem">
-        <validCheckSum>8:35d0e90b17ad307b81397904dcc79a23</validCheckSum>
-        <insert tableName="employee">
-            <column name="employeeId" value="fb35003f-10a2-c0f8-5c71-480772c04548"/>
-            <column name="department_id" value="cd47b2ef-df55-044e-4b89-5b7faf3d4648"/>
-            <column name="post" value="scientist"/>
-            <column name="system_user_id" value="60885987-1b61-4247-94c7-dff348347f93"/>
+        <insert tableName="initiator">
+            <column name="id" value="f44fc4fb-8b15-0862-b59c-c1f586fe2b03"/>
+            <column name="dtype" value="Employee"/>
+            <column name="FIRST_NAME" value="Admin"/>
+            <column name="LAST_NAME" value="Adminov"/>
             <column name="version" value="1"/>
         </insert>
     </changeSet>
 
-    <!--changeSet id="5" author="informationSystem">
+    <changeSet id="3" author="informationSystem">
+        <insert tableName="client">
+            <column name="clientId" value="864ef664-74a9-82c5-8c81-d888186975eb"/>
+            <column name="email" value="client1@gmail.com"/>
+        </insert>
+        <insert tableName="client">
+            <column name="clientId" value="784fc4fb-8bb5-0862-b59c-a1f586fe2b03"/>
+            <column name="email" value="client2@gmail.com"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="4" author="informationSystem">
+
+        <insert tableName="employee">
+            <column name="employeeId" value="f44fc4fb-8b15-0862-b59c-c1f586fe2b03"/>
+            <column name="SYSTEM_USER_ID" value="60885987-1b61-4247-94c7-dff348347f93"/>
+            <column name="post" value="scientist"/>
+            <column name="DEPARTMENT_ID" value="cd47b2ef-df55-044e-4b89-5b7faf3d4648"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="5" author="informationSystem">
         <insert tableName="request">
             <column name="id" value="8b35005f-10a2-c0f8-5c71-4807a2c04548"/>
             <column name="status" value="Открыта"/>
@@ -71,18 +75,18 @@
             <column name="close_date" value="07.07.2023"/>
             <column name="open_date" value="07.07.2022"/>
             <column name="initiator_id" value="864ef664-74a9-82c5-8c81-d888186975eb"/>
-            <column name="executor_id" value="fb35003f-10a2-c0f8-5c71-480772c04548"/>
+            <column name="executor_id" value="f44fc4fb-8b15-0862-b59c-c1f586fe2b03"/>
             <column name="version" value="1"/>
         </insert>
         <insert tableName="request">
             <column name="id" value="fb4ef664-74a9-82c5-8c81-d888186975eb"/>
             <column name="status" value="Открыта"/>
-            <column name="description" value="test request"/>
-            <column name="close_date" value="07.07.2023"/>
+            <column name="description" value="test request 2"/>
+            <column name="close_date" value="07.08.2024"/>
             <column name="open_date" value="07.07.2022"/>
-            <column name="initiator_id" value="784fc4fb-8bb5-0862-b59c-a1f586fe2b03"/>
-            <column name="executor_id" value="fb35003f-10a2-c0f8-5c71-480772c04548"/>
+            <column name="initiator_id" value="864ef664-74a9-82c5-8c81-d888186975eb"/>
+            <column name="executor_id" value="f44fc4fb-8b15-0862-b59c-c1f586fe2b03"/>
             <column name="version" value="1"/>
         </insert>
-    </changeSet>-->
+    </changeSet>
 </databaseChangeLog>
