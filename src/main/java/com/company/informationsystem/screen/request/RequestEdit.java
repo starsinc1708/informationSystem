@@ -43,11 +43,11 @@ public class RequestEdit extends StandardEditor<Request> {
     @Autowired
     private EntityPicker<Employee> executorField;
 
+
     private Employee currentUser;
 
     @Subscribe
     public void onInit(InitEvent event) {
-
         currentUser = dataManager.load(Employee.class)
                 .query("select e from Employee e where e.systemUser.username = :username")
                 .parameter("username", currentAuthentication.getUser().getUsername())
@@ -61,19 +61,20 @@ public class RequestEdit extends StandardEditor<Request> {
         executorField.setEditable(false);
 
         List<String> list = new ArrayList<>();
-        list.add("Open");
-        list.add("Under consideration");
-        list.add("On approval");
-        list.add("Closed");
+        list.add("Открыта");
+        list.add("На рассмотрении");
+        list.add("На согласовании");
+        list.add("На утверждении");
+        list.add("Закрыта");
         requestStatusField.setOptionsList(list);
     }
 
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
-        if(dataManager.load(Request.class).id(getEditedEntity().getId()).optional().isPresent()) {
-            System.out.println(dataManager.load(Client.class).id(getEditedEntity().getInitiator().getId()).optional().isPresent());
-            System.out.println(getEditedEntity().getId());
-            System.out.println(getEditedEntity().getInitiator().getId());
+        if(dataManager.load(Request.class)
+                .id(getEditedEntity().getId())
+                .optional()
+                .isPresent()) {
             if(Objects.equals(currentUser.getId(), getEditedEntity().getInitiator().getId())) {
                 requestStatusField.setEditable(true);
                 descriptionField.setEditable(true);
@@ -82,7 +83,9 @@ public class RequestEdit extends StandardEditor<Request> {
                 initiatorField.setEditable(true);
                 executorField.setEditable(true);
             }
-            if (dataManager.load(Client.class).id(getEditedEntity().getInitiator().getId()).optional().isPresent()){
+            if (dataManager.load(Client.class).id(getEditedEntity().getInitiator().getId())
+                    .optional()
+                    .isPresent()){
                 requestStatusField.setEditable(true);
             }
         }
@@ -98,6 +101,7 @@ public class RequestEdit extends StandardEditor<Request> {
         initiatorField.setEditable(true);
         executorField.setEditable(true);
         if(!Objects.equals(currentAuthentication.getUser().getUsername(), "admin")) {
+            initiatorField.setEditable(false);
             event.getEntity().setInitiator(currentUser);
         }
     }
