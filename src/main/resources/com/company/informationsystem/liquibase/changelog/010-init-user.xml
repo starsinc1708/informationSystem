@@ -37,12 +37,14 @@
     </changeSet>
 
     <changeSet id="3" author="informationSystem" context="!cuba">
-
+        <validCheckSum>8:ac158511d8a5a5c827cd6f3ff858ac4a</validCheckSum>
         <insert tableName="USER_" dbms="postgresql, mssql, hsqldb">
             <column name="ID" value="60885987-1b61-4247-94c7-dff348347f93"/>
             <column name="VERSION" value="1"/>
             <column name="USERNAME" value="admin"/>
             <column name="PASSWORD" value="{noop}admin"/>
+            <column name="FIRST_NAME" value="Admin"/>
+            <column name="LAST_NAME" value="Adminov"/>
             <column name="ACTIVE" valueBoolean="true"/>
         </insert>
 
@@ -73,7 +75,6 @@
             <column name="ROLE_CODE" value="system-full-access"/>
             <column name="ROLE_TYPE" value="resource"/>
         </insert>
-
     </changeSet>
 
 </databaseChangeLog>
